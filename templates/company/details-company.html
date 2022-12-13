@@ -1,0 +1,33 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <!-- details section -->
+    <section id="game-details">
+        <h1>Company Details</h1>
+        <div class="info-section">
+            <div class="game-header">
+                <!-- game image -->
+                <img class="game-img"
+                     src="{{ company.logo.url }}"
+                     alt='image of {{ company.logo }}'/>
+                <!-- title and rating -->
+                <h1>{{ company.name }}</h1>
+                <span>Location: {{ company.location }}</span>
+                <!-- game category -->
+                <p><span>Founded on: {{ company.date_formed }}</span></p>
+                <p><span>Owner: {{ company.user }}</span></p>
+
+            </div>
+            {% if company.description %}
+            <!-- game summary (if any)-->
+            <p class="text">{{ company.description }}</p>
+            {% endif %}
+
+            <div class="buttons">
+                <a href="{% url 'mygroceries' %}" class="button">My Groceries</a>
+                <a href="{% url 'add grocery' %}" class="button">Add Grocery</a>
+                <a href="{% url 'edit company' pk=request.user.pk %}" class="button">Edit</a>
+                <a href="{% url 'delete company' pk=company.pk %}" class="button">Delete</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

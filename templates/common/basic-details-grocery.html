@@ -1,0 +1,41 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <!-- details section -->
+    <section id="game-details">
+        <h1>Grocery Details</h1>
+        <div class="info-section">
+            <div class="game-header">
+                <!-- game image -->
+                <img class="game-img"
+                     src="{{ grocery.image_url }}"
+                     alt='game image'/>
+                <h1>Name: {{ grocery.name }}</h1>
+                <span style="font-size: 30px"> Rating: {{ grocery.quality_rating }}</span>
+                <p><span>Category: {{ grocery.category }}</span></p>
+                <p><span class="calendar">Date Created: {{ grocery.date_created }}</span></p>
+                <p><span class="calendar">Expiry Date: {{ grocery.expiry_date }}</span></p>
+            </div>
+            <p>Company: {{ grocery.company }}</p>
+            </div>
+            {% for review in reviews %}
+                <li style="background: white">
+                    <div>
+                        <span>
+                            <strong class="text-info" style="border: #3e4443" >User: {{ review.user }}</strong>
+                        </span>
+                        <p>
+                            <strong class="text-muted" >User Rating: {{ review.customer_rating }}</strong>
+                        </p>
+                        <p class="game-summary">
+                            {{ review.review }}
+                        </p>
+                    </div>
+                </li>
+            {% endfor %}
+            <form method="post" action="{% url 'review grocery' grocery_id=grocery.pk %}">
+                {{ review_form }}
+                <button type="submit" class="button">Post</button>
+                {% csrf_token %}
+            </form>
+        </section>
+{% endblock %}

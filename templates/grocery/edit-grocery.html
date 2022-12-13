@@ -1,0 +1,16 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <!-- edit game section -->
+    <section id="create-page" class="auth">
+        <!-- edit game form -->
+        <form id="create" action="{% url 'edit grocery' username=username grocery_slug=grocery_slug %}" method="post">
+            <div class="container">
+                <!-- Edit Game paragraph -->
+                <h1>Edit Grocery</h1>
+                {{ form }}
+                <input class="btn submit" type="submit" value="Edit Grocery">
+                {% csrf_token %}
+            </div>
+        </form>
+    </section>
+{% endblock %}

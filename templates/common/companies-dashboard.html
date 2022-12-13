@@ -1,0 +1,32 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <!-- Display paragraph: If there are no games-->
+    {% if not companies %}
+        <p class="no-articles">No companies yet</p>
+
+    <!-- Display div "game" with information about every game (if any)-->
+    <section id="welcome-world">
+
+    {% else %}
+        {% for company in companies %}
+            <div class="game">
+                <div class="image-wrap">
+                    <img src="{{ company.logo.url }}"
+                         alt="{{ company.logo }}">
+                </div>
+                <!-- game title -->
+                <h3>{{ company.name }}</h3>
+                <!-- game category-->
+                <h1>Location: {{ company.location }}</h1>
+                <h1>Date Formed:{{ company.date_formed }}</h1>
+                {% if company.description %}
+                    <h1>Company: {{ company.description }}</h1>
+                {% endif %}
+                <div class="data-buttons">
+                    <!-- game details button -->
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    </section>
+{% endblock %}

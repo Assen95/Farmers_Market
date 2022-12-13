@@ -1,0 +1,34 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <!-- Display paragraph: If there are no games-->
+    <nav>
+        <a href="{% url 'company list' %}" class="button">Companies</a>
+    </nav>
+    {% if not groceries %}
+        <p class="no-articles">No groceries yet</p>
+
+    <!-- Display div "game" with information about every game (if any)-->
+    <section id="welcome-world">
+
+    {% else %}
+        {% for grocery in groceries %}
+            <div class="game">
+                <div class="image-wrap">
+                    <!-- game image -->
+                    <img src="{{ grocery.image_url }}"
+                         alt="{{ grocery.name }}">
+                </div>
+                <!-- game title -->
+                <h3>{{ grocery.name }}</h3>
+                <!-- game category-->
+                <h1>Category:{{ grocery.category }}</h1>
+                <h1>Company: {{ grocery.company }}</h1>
+                <div class="data-buttons">
+                    <!-- game details button -->
+                    <a href="{% url 'basic details view' grocery_slug=grocery.slug %}" class="btn details-btn">Details</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    </section>
+{% endblock %}

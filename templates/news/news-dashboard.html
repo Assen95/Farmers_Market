@@ -1,0 +1,36 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <!-- Display paragraph: If there are no games-->
+    {% if request.user.is_staff %}
+        <nav>
+            <a href="{% url 'add news' %}" class="button">Create News</a>
+        </nav>
+    {% endif %}
+    {% if not newses %}
+        <p class="no-articles">No news yet</p>
+
+    <!-- Display div "game" with information about every game (if any)-->
+    <section id="welcome-world">
+
+    {% else %}
+        {% for news in newses %}
+            <div class="game">
+                <div class="news-image">
+                    <!-- game image -->
+                    <img src="{{ news.image.url }}"
+                         alt="{{ news.title }}">
+                </div>
+                <!-- game title -->
+                <h3>{{ news.title }}</h3>
+                <!-- game category-->
+                <h1>Date:{{ news.publication }}</h1>
+                <h1>Company: {{ news.author }}</h1>
+                <div class="data-buttons">
+                    <!-- game details button -->
+                    <a href="{% url 'details news' news_id=news.id %}" class="btn details-btn">Details</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    </section>
+{% endblock %}
