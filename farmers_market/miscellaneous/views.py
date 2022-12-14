@@ -82,3 +82,13 @@ def review_grocery(request, grocery_id):
         review.save()
 
     return redirect('grocery list')
+
+
+def about_us_page(request):
+    has_company = Company.objects.filter(user_id=request.user.pk)
+
+    context = {
+        'has_company': has_company,
+    }
+
+    return render(request, 'common/about-us.html', context)

@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic as views
 
 
@@ -30,10 +31,15 @@ def add_company(request):
     return render(request, 'company/add-company.html', context)
 
 
-# TODO: DoesNotExist
+# TODO: local DoesNotExist
 def view_company(request, pk):
-    company = Company.objects.filter(user_id=pk).get()
-    is_owner = request.user = company.user
+    try:
+        company = Company.objects.filter(user_id=pk).get()
+        is_owner = request.user = company.user
+    except Exception as exc:
+        return HttpResponse(
+            f' {HttpResponse.status_code}-{exc} PK was not found. Did you check if it exists, '
+            'or did you filter the correct pk?')
     grocery_count = Grocery.objects.filter(pk=pk).count()
     has_company = Company.objects.filter(user_id=request.user.pk)
 
@@ -49,7 +55,8 @@ def view_company(request, pk):
 
 @login_required
 def edit_company(request, pk):
-    company = Company.objects.filter(pk=pk).get()
+    #company = Company.objects.filter(pk=pk).get()
+    company = get_object_or_404(Company, pk=pk)
     has_company = Company.objects.filter(user_id=request.user.pk)
     if request.method == 'GET':
         form = BaseCompanyForm(instance=company)
@@ -69,7 +76,7 @@ def edit_company(request, pk):
 
 
 def delete_company(request, pk):
-    company = Company.objects.filter(pk=pk).get()
+    company = get_object_or_404(Company, pk=pk)
     has_company = Company.objects.filter(user_id=request.user.pk)
     if request.method == 'GET':
         form = CompanyDeleteForm(instance=company)

@@ -52,6 +52,16 @@
     font-family: "Agency FB", serif;
 }
 
+.welcome-message p{
+    color: white;
+    font-size: x-large;
+    line-height: 1;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-family: "Agency FB", serif;
+}
+
 #welcome-world>#home-page {
     width: 50%;
     margin: auto;

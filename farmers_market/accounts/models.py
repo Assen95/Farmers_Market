@@ -58,29 +58,3 @@ class AppUser(auth_model.AbstractUser):
         blank=True,
     )
 
-# I thought I was building an AbstractBaseUser, hence the error.
-
-# class Profile(models.Model):
-#     MAX_LEN_FIRST_NAME = 30
-#     MAX_LEN_LAST_NAME = 30
-#
-#     first_name = models.CharField(
-#         max_length=MAX_LEN_FIRST_NAME,
-#         null=True,
-#         blank=True,
-#     )
-#     last_name = models.CharField(
-#         max_length=MAX_LEN_LAST_NAME,
-#         null=True,
-#         blank=True,
-#     )
-#     profile_picture = models.URLField(
-#         null=True,
-#         blank=True,
-#     )
-#
-#     user = models.OneToOneField(
-#         AppUser,
-#         primary_key=True,
-#         on_delete=models.CASCADE,
-#     )
