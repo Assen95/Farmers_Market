@@ -24,7 +24,7 @@
 
             <div class="buttons">
                 <a href="{% url 'mygroceries' %}" class="button">My Groceries</a>
-                <a href="{% url 'add grocery' %}" class="button">Add Grocery</a>
+                <a href="{% url 'add grocery' company_id=company.pk %}" class="button">Add Grocery</a>
                 <a href="{% url 'edit company' pk=request.user.pk %}" class="button">Edit</a>
                 <a href="{% url 'delete company' pk=company.pk %}" class="button">Delete</a>
             </div>

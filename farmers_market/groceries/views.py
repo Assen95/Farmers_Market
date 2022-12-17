@@ -14,7 +14,9 @@ UserModel = get_user_model()
 
 
 @login_required
-def add_grocery(request):
+def add_grocery(request, company_id):
+    get_company = Company.objects.get(pk=company_id)
+    print(get_company)
     has_company = Company.objects.filter(user_id=request.user.pk)
     if request.method == 'GET':
         form = AddGroceryForm()
@@ -23,12 +25,14 @@ def add_grocery(request):
         if form.is_valid():
             grocery = form.save(commit=False)
             grocery.user = request.user
+            grocery.company = get_company
             grocery.save()
             return redirect('details company', pk=request.user.pk)
 
     context = {
         'form': form,
         'has_company': has_company,
+        'get_company': get_company,
     }
 
     return render(request, 'grocery/create-grocery.html', context)

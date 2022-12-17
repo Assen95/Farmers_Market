@@ -3,7 +3,7 @@
     <!-- create game section -->
     <section id="create-page" class="auth">
         <!-- create game form -->
-        <form id="create" method="post" action="{% url 'add grocery' %}">
+        <form id="create" method="post" action="{% url 'add grocery' company_id=get_company.pk %}">
             <div class="container">
                 <!-- create game paragraph -->
                 <h1>Create Grocery</h1>

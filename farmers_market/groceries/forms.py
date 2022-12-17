@@ -6,7 +6,7 @@ from farmers_market.groceries.models import Grocery
 class AddGroceryForm(forms.ModelForm):
     class Meta:
         model = Grocery
-        exclude = ('slug',)
+        exclude = ('slug', 'user', 'company')
         # fields = ('name', 'category', 'quality_rating', 'expiry_date', 'image_url',)
 
 
