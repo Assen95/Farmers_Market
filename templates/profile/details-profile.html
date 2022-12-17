@@ -14,9 +14,12 @@
                     <img class="game-img" src="{{ profile.profile_picture }}" alt='profile-image'/>
                 {% endif %}
 
-                {% if profile.full_name %}
+                {% if profile.first_name%}
                     <!-- user full name (if any) -->
-                    <h1>{{ profile.full_name }}</h1>
+                    <p>First Name:{{ profile.first_name }}</p>
+                    {% if profile.last_name %}
+                        <p>Last Name: {{ profile.last_name }}</p>
+                    {% endif %}
                 {% endif %}
                 <p class="text">Username: {{ profile.username }}</p>
                 <!-- user email -->

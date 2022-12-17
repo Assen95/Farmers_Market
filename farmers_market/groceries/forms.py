@@ -19,7 +19,7 @@ class EditGroceryForm(forms.ModelForm):
 class DeleteGroceryForm(forms.ModelForm):
     class Meta:
         model = Grocery
-        exclude = ('slug',)
+        exclude = ('user', 'slug', 'company', 'category',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -28,10 +28,8 @@ class DeleteGroceryForm(forms.ModelForm):
     def save(self, commit=True):
         if commit:
             self.instance.delete()
-
         return self.instance
 
     def _set_disabled_fields(self):
         for _, field in self.fields.items():
             field.widget.attrs['readonly'] = 'readonly'
-            field.widget.attrs['disabled'] = 'disabled'

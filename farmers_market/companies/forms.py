@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from farmers_market.companies.models import Company
+from farmers_market.groceries.models import Grocery
 from farmers_market.miscellaneous.form_mixins import DisabledFormMixin
 
 
@@ -20,5 +21,6 @@ class CompanyDeleteForm(DisabledFormMixin, BaseCompanyForm):
 
     def save(self, commit=True):
         if commit:
+            Grocery.objects.all().delete()
             self.instance.delete()
         return self.instance

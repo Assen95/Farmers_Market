@@ -90,7 +90,6 @@ def edit_grocery(request, username, grocery_slug):
 def delete_grocery(request, username, grocery_slug):
     has_company = Company.objects.filter(user_id=request.user.pk)
     grocery = get_grocery_by_slug_and_username(grocery_slug, username)
-
     if request.method == 'GET':
         form = DeleteGroceryForm(instance=grocery)
     else:
@@ -103,7 +102,8 @@ def delete_grocery(request, username, grocery_slug):
         'form': form,
         'username': username,
         'grocery_slug': grocery_slug,
-        'has_company': has_company
+        'has_company': has_company,
+        'grocery': grocery,
     }
 
     return render(request, 'grocery/delete-grocery.html', context)
