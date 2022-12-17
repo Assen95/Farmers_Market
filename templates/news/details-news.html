@@ -18,8 +18,8 @@
 
             {% if is_owner %}
                 <div class="buttons">
-                    <a href="{% url 'edit news' pk=request.user.pk %}" class="button">Edit</a>
-                    <a href="{% url 'delete news' pk=request.user.pk %}" class="button">Delete</a>
+                    <a href="{% url 'edit news' author_id=request.user.pk news_id=news.id %}" class="button">Edit</a>
+                    <a href="{% url 'delete news' author_id=request.user.pk news_id=news.id %}" class="button">Delete</a>
                 </div>
             {% endif %}
         </div>

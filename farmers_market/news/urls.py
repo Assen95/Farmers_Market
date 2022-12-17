@@ -6,8 +6,12 @@ urlpatterns = (
     path('add/', add_news, name='add news'),
     path('all-news', AllNewsListView.as_view(), name='news list'),
     path('<int:news_id>/details/', view_news, name='details news'),
-    path('<int:pk>/', include([
+    path('<int:author_id>/news/<int:news_id>/', include([
         path('edit/', edit_news, name='edit news'),
-        path('delete/', delete_news, name='delete news'),
-    ])),
+        path('delete/', delete_news, name='delete news')
+    ]))
+    # path('<int:pk>/', include([
+    #     path('edit/', edit_news, name='edit news'),
+    #     path('delete/', delete_news, name='delete news'),
+    # ])),
 )

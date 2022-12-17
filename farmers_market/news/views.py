@@ -4,6 +4,7 @@ from django.views import generic as view
 from farmers_market.companies.models import Company
 from farmers_market.news.forms import AddNewsForm, EditNewsForm, DeleteNewsForm
 from farmers_market.news.models import News
+from farmers_market.news.utils import get_news_by_news_id_and_author_id
 
 
 def add_news(request):
@@ -38,7 +39,7 @@ class AllNewsListView(view.ListView):
 
 
 def view_news(request, news_id):
-    news = News.objects.filter(id=news_id).get()
+    news = News.objects.filter(pk=news_id).get()
     is_owner = request.user = news.author
     has_company = Company.objects.filter(user_id=request.user.pk)
 
@@ -51,8 +52,8 @@ def view_news(request, news_id):
     return render(request, 'news/details-news.html', context)
 
 
-def edit_news(request, pk):
-    news = News.objects.filter(author_id=pk).get()
+def edit_news(request, author_id, news_id):
+    news = get_news_by_news_id_and_author_id(news_id, author_id)
     has_company = Company.objects.filter(user_id=request.user.pk)
     if request.method == 'GET':
         form = EditNewsForm(instance=news)
@@ -71,8 +72,8 @@ def edit_news(request, pk):
     return render(request, 'news/edit-news.html', context)
 
 
-def delete_news(request, pk):
-    news = News.objects.filter(author_id=pk).get()
+def delete_news(request, author_id, news_id):
+    news = get_news_by_news_id_and_author_id(news_id, author_id)
     has_company = Company.objects.filter(user_id=request.user.pk)
     if request.method == 'GET':
         form = DeleteNewsForm(instance=news)
