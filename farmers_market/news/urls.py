@@ -10,8 +10,4 @@ urlpatterns = (
         path('edit/', edit_news, name='edit news'),
         path('delete/', delete_news, name='delete news')
     ]))
-    # path('<int:pk>/', include([
-    #     path('edit/', edit_news, name='edit news'),
-    #     path('delete/', delete_news, name='delete news'),
-    # ])),
 )

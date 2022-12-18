@@ -17,6 +17,7 @@
             </div>
             <p>Company: {{ grocery.company }}</p>
             </div>
+            <h2>{{ reviews.count }} reviews</h2>
             {% for review in reviews %}
                 <li style="background: white">
                     <div>
@@ -32,7 +33,7 @@
                     </div>
                 </li>
             {% endfor %}
-            <form method="post" action="{% url 'review grocery' grocery_id=grocery.pk %}">
+            <form method="post">
                 {{ review_form }}
                 <button type="submit" class="button">Post</button>
                 {% csrf_token %}

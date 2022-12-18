@@ -30,6 +30,14 @@ class Review(models.Model):
         blank=False,
     )
 
+    grocery = models.ForeignKey(
+        Grocery,
+        on_delete=models.RESTRICT,
+        related_name='reviews',
+        null=False,
+        blank=True,
+    )
+
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,

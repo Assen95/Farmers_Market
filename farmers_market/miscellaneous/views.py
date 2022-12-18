@@ -58,30 +58,41 @@ class AllCompanyListView(view.ListView):
 
 def basic_grocery_details(request, grocery_slug):
     grocery = Grocery.objects.filter(slug=grocery_slug).get()
-    reviews = Review.objects.filter(user=request.user.pk).all()
+    new_review = None
+    reviews = grocery.reviews.all()
+    if request.method == 'POST':
+        review_form = ReviewGroceryForm(data=request.POST)
+        if review_form.is_valid():
+            new_review = review_form.save(commit=False)
+            new_review.user = request.user
+            new_review.grocery = grocery
+            new_review.save()
+    else:
+        review_form = ReviewGroceryForm()
 
     context = {
         'grocery': grocery,
-        'review_form': ReviewGroceryForm(),
+        'new_review': new_review,
+        'review_form': review_form,
         'reviews': reviews,
     }
 
     return render(request, 'common/basic-details-grocery.html', context)
 
 
-@login_required
-def review_grocery(request, grocery_id):
-    grocery = Grocery.objects.filter(pk=grocery_id).get()
-
-    form = ReviewGroceryForm(request.POST)
-
-    if form.is_valid():
-        review = form.save(commit=False)
-        review.user = request.user
-        review.grocery = grocery
-        review.save()
-
-    return redirect('grocery list')
+# @login_required
+# def review_grocery(request, grocery_id):
+#     grocery = Grocery.objects.filter(pk=grocery_id).get()
+#
+#     form = ReviewGroceryForm(request.POST)
+#
+#     if form.is_valid():
+#         review = form.save(commit=False)
+#         review.user = request.user
+#         review.grocery = grocery
+#         review.save()
+#
+#     return redirect('grocery list')
 
 
 def about_us_page(request):
